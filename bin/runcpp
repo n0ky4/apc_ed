@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# runcpp - Compile and run a C++ file.
+# Usage: ./runcpp file.cpp [args...]
+
+CXX=clang++
+STD=c++20
+CXXFLAGS="-pedantic -O2 -Wall -Wextra -Wvla -g -fsanitize=address"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 file.cpp [args...]"
+    exit 1
+fi
+
+src="$1"
+shift
+
+tmpfile=$(mktemp /tmp/runcppXXXXXX)
+
+$CXX -std=$STD $CXXFLAGS "$src" -o "$tmpfile"
+if [ $? -ne 0 ]; then
+    echo "Compilation failed."
+    rm -f "$tmpfile"
+    exit 1
+fi
+
+"$tmpfile" "$@"
+rm -f "$tmpfile"

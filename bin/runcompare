@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# runcompare - Compile, run a C file and compare its output to an expected file
+# Usage: ./runcompare file.c input.txt expected_output.txt [program args...]
+
+CC=gcc
+STD=c99
+CFLAGS="-O2 -Wall -Wextra -Werror -pedantic"
+LDFLAGS="-lm"
+DIFF=delta
+DIFFOPTS="--line-numbers --file-style=omit --hunk-header-style=omit --side-by-side"
+
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 file.c input.txt expected.txt [args...]"
+    exit 1
+fi
+
+src="$1"
+input="$2"
+expected="$3"
+shift 3
+
+tmpbin=$(mktemp /tmp/runcompare_bin_XXXXXX)
+tmpout=$(mktemp /tmp/runcompare_out_XXXXXX)
+
+$CC -std=$STD $CFLAGS "$src" -o "$tmpbin" $LDFLAGS
+if [ $? -ne 0 ]; then
+    echo "Compilation failed."
+    rm -f "$tmpbin" "$tmpout"
+    exit 1
+fi
+
+"$tmpbin" "$@" < "$input" > "$tmpout"
+
+echo "=== DIFF (output vs expected) ==="
+
+if $DIFF $DIFFOPTS "$expected" "$tmpout"; then
+    echo
+    echo ":D Output matches expected!"
+else
+    echo
+    echo ";-; Output differs!"
+fi
+
+rm -f "$tmpbin" "$tmpout"

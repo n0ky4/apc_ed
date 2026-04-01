@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# runc - Compile and run a C file
+# Usage: ./runc file.c [args...]
+
+CC=gcc
+STD=c99
+CFLAGS="-pedantic -O2 -Wall -Wextra -Wvla -g -fsanitize=address"
+LDFLAGS="-lm"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 file.c [args...]"
+    exit 1
+fi
+
+src="$1"
+shift
+
+tmpfile=$(mktemp /tmp/runcXXXXXX)
+
+$CC -std=$STD $CFLAGS "$src" -o "$tmpfile" $LDFLAGS
+if [ $? -ne 0 ]; then
+    echo "Compilation failed."
+    rm -f "$tmpfile"
+    exit 1
+fi
+
+"$tmpfile" "$@"
+rm -f "$tmpfile"
