@@ -1,0 +1,9 @@
+Questão 2. Reflita e responda:
+(a) Qual a diferença entre passagem por valor e referência?
+A passagem por valor faz uma cópia de uma varíavel para dentro do escopo da função. Já a passagem por referência permite o acesso direto a uma variável em outro escopo.
+
+(b) Quando é vantajoso passar registros (struct) por referências?
+Quando se deseja alterar os campos de um registro ou quando o registro é muito grande em termos de memória, assim, evita-se uma cópia desnecessária.
+
+(c) E quando é melhor usar passagem por valores?
+Para valores temporários e/ou pequenos em termos de memória.

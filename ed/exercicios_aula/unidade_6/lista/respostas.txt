@@ -1,0 +1,11 @@
+(a) É possível determinar a saída do programa (ou parte dela)? Qual?
+
+R: Não é possível determinar a saída do programa, uma vez que um crash ocorre por conta de um segmentation fault (SEGFAULT) antes mesmo de qualquer saída.
+
+(b) Existe memory leak?
+
+R: Sim, existe um memory leak na função `g`. O parâmetro `int *c` é um ponteiro passado por valor, isto é, qualquer tentativa de modificá-lo (no sentido de alterar seu endereço) apenas modificará a cópia, e não a referência, o que nos faz perder o endereço alocado, causando memory leak.
+
+(c) Modifique para que toda memória alocada seja liberada e a saída seja a esperada: 2, 3, 100.
+
+Vide  01_modificado.c

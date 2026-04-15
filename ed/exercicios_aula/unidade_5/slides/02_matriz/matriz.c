@@ -16,9 +16,10 @@ int matriz_iguais(Matriz a, Matriz b) {
 
 void matriz_imprimir(Matriz a) {
     for (int i = 0; i < a.linhas; i++) {
+        printf("[ ");
         for (int j = 0; j < a.colunas; j++)
-            printf("%5.2f ", a.dados[i][j]);
-        printf("\n");
+            printf("%6.2f ", a.dados[i][j]);
+        printf(" ]\n");
     }
 }
 
