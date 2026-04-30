@@ -1,0 +1,6 @@
+- Quem faz mais multiplicações: a versão iterativa ou a versão recursiva do fatorial? 
+- Os dois usam a mesma quantidade de memória?
+
+Ambas as versões realizam a mesma quantidade de multiplicações: n - 1.
+
+A versão recursiva usa uma maior quantidade de memória, uma vez que cada chamada de função cria um novo frame na pilha (stack) contendo parâmetros, variáveis locais e endereços de retorno.

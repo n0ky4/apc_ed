@@ -1,0 +1,9 @@
+Dicas para criar funções recursivas:
+
+1. Comece pelo menor valor de entrada possível. Isso lhe força a pensar no caso base diretamente.
+
+2. Pegue entradas consecutivas n e n-1 e construa suas saídas. Em seguida, pergunte-se: como obter f(n) a partir de f(n-1)?
+
+3. Caso o problema esteja muito difícil (e a versão iterativa seja mais simples), faça a versão iterativa primeiro e converta-a para a versão recursiva. E lembre-se: loops aninhados equivalem a funções recursivas aninhadas.
+    - O loop externo vira a função principal
+    - O loop interno vira uma função auxiliar recursiva   
